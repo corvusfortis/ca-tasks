@@ -1,11 +1,15 @@
-var maxProfit = function(prices) {
-    let result = [];
+var containsDuplicate = function(nums) {
     
-    for(let i = 0; i < prices.length - 1; i++){
-        prices.slice(i+1).forEach((item, index) => {
-            result.push(item - prices[i]);
-        })
+    let copyArr = [];
+    
+    for(let i = 0; i < nums.length; i++){
+        copyArr = [...nums];
+        copyArr.splice(i, 1);
+        
+        if(copyArr.some(e => e === nums[i])){
+            return true;
+        }
     }
     
-    return Math.max.apply(null, result) > 0 ? Math.max.apply(null, result) : 0;
+    return false;
 };
