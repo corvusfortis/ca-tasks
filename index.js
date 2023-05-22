@@ -1,21 +1,11 @@
-var twoSum = function(nums, target) {
-  let result = [];
-  
-  for(let i = 0; i < nums.length; i++){
-      nums.forEach((item, index) => {
-          if (nums[i] + item === target && i !== index){
-              console.log(nums[i] + item);
-              result.push(i);
-              result.push(index);
-          }
-          
-         
-      })
-      
-       if(result.length > 0){
-              return result;
-          }
-        }
-          
-   return result;
+var maxProfit = function(prices) {
+    let result = [];
+    
+    for(let i = 0; i < prices.length - 1; i++){
+        prices.slice(i+1).forEach((item, index) => {
+            result.push(item - prices[i]);
+        })
+    }
+    
+    return Math.max.apply(null, result) > 0 ? Math.max.apply(null, result) : 0;
 };
