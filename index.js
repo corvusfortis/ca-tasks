@@ -1,33 +1,24 @@
-var threeSum = function(nums) {
-  let result = [];
-  let temp = [];
-  let triplet;
+var setZeroes = function(matrix) {
+    
+  let zeroesI = [];
+  let zeroesJ = [];
   
-  for(let i = 0; i < nums.length; i++){
-      for(let j = 0; j < nums.length; j++){
-          if(i === j){
-              continue;
-          }
-          for(let k = 0; k < nums.length; k++){
-              if(i === k || j === k){
-                  continue;
-              }
-             triplet = [];
-             triplet.push(nums[i]);
-             triplet.push(nums[j]);
-             triplet.push(nums[k]);
-             temp.push(triplet);
+  for(let i = 0; i < matrix.length; i++){
+      for(let j = 0; j < matrix[i].length; j++){
+          if(matrix[i][j] === 0){
+              zeroesI.push(i);
+              zeroesJ.push(j);
           }
       }
   }
   
-  temp = temp.map(e => e.sort((a, b) => a - b).join('|'));
-  
-  temp.forEach(e => {
-      if(!result.some(i => i === e)){
-          result.push(e);
+  for(let i = 0; i < matrix.length; i++){
+      for(let j = 0; j < matrix[i].length; j++){
+          if(zeroesI.some(e => e === i) || zeroesJ.some(e => e === j)){
+              matrix[i][j] = 0;
+          }
       }
-  })
+  }
   
-  return result.map(e => e.split('|').map(i => Number(i))).filter(e => e.reduce((a, b) => a + b) === 0);
+  return matrix;
 };
