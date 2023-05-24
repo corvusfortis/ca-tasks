@@ -1,4 +1,4 @@
-var longestPalindrome = function(s){
+var countSubstrings = function(s) {
   let startIndex;
   let curLength = s.length;
   let curStr;
@@ -11,21 +11,18 @@ var longestPalindrome = function(s){
     curStr = '';
         for(let i = startIndex; i < curLength; i++){
             curStr += s[i];
-            if(isPalindrome(curStr)){
-                result.push(curStr);
-            }
         }
-        
-        startIndex ++;
-    }
 
+        result.push(curStr);
+        
+        startIndex++;
+    }
+  
     curLength--;
 }
 
-return result.reduce((a ,b) => a.length > b.length ? a : b);
-
-}
-
+return result.filter(e => isPalindrome(e) && e.length > 0).length;
+};
 
 function isPalindrome(s) {
 let result = s.toLowerCase().split('').filter(e => /[a-z0-9]/.test(e));
