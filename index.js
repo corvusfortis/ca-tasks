@@ -1,27 +1,34 @@
-var lengthOfLongestSubstring = function(s) {
-  let subs = '';
-      let arr = [];
-      let j = 0;
-      
-      for(let i = 0; i < s.length; i++){
-          if(!subs.includes(s[i])){
-              subs += s[i];
-          }else{
-              arr.push(subs);
-              // s[i-1] === s[i] ? subs = s[i] : subs = s[i-1] + s[i];
-              subs = '';
-              j = i;
-              
-              while(!subs.includes(s[j]) && s[j - 1] !== s[j] && j >= 0){
-                  subs += s[j];
-                  j--;
-              }
-              
-              subs.split('').reverse().join('');
+var groupAnagrams = function(strs) {
+
+  if(strs.every(e => e === strs[0])){
+      return [strs];
+  }
+
+  let arr = [];
+  let result = [];
+  
+  strs.forEach((e, ind) => {
+      arr = [];
+      arr.push(e);
+      strs.forEach((i, index) => {
+          if(ind !== index && isAnagram(e, i)){
+              arr.push(i);
           }
-      }
-      
-      
-      console.log(arr);
-      return Math.max.apply(null, arr.map(e => e.length));
-  };
+      })
+      result.push(arr);
+  })
+  
+  result = result.map(e => e.sort().join('|'));
+  
+  let set = new Set(result);
+  
+  result = Array.from(set);
+  
+  return result.map(e => e.split('|')).sort();
+};
+
+
+function isAnagram(s, t) {
+  
+  return s.split('').sort().join('') === t.split('').sort().join('');
+}
