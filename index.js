@@ -1,13 +1,18 @@
-var maxArea = function(height) {
-  let result = [];
-  let lower;
-  
-  height.forEach((e, ind) => {
-      height.forEach((i, inx) => {
-          lower = e > i ? i : e;
-          result.push(lower * (Math.abs(ind - inx)));
-      })
-  })
-  
-  return Math.max.apply(null, result);
+var reverseList = function(head) {
+  let prev = null;
+  let curr = head;
+  let nxt = null;
+
+
+  while(curr !== null){
+      nxt = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = nxt;
+  }
+
+  head = prev;
+
+  return head;
+
 };
