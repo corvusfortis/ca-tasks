@@ -1,36 +1,15 @@
-var countSubstrings = function(s) {
-  let startIndex;
-  let curLength = s.length;
-  let curStr;
-  let result = [];
+var climbStairs = function(n) {
+   
+  let curr = 0;
+  let prev = 1;
+  let prevPrev = 0;
   
-   while(curLength > 0){
-    startIndex = 0;
-    while(startIndex <= curLength){
-        
-    curStr = '';
-        for(let i = startIndex; i < curLength; i++){
-            curStr += s[i];
-        }
-
-        result.push(curStr);
-        
-        startIndex++;
-    }
+  for(let i = 0; i < n; i++){
+          
+          curr = prev + prevPrev;
+          prevPrev = prev;
+          prev = curr;
+  }
   
-    curLength--;
-}
-
-return result.filter(e => isPalindrome(e) && e.length > 0).length;
-};
-
-function isPalindrome(s) {
-let result = s.toLowerCase().split('').filter(e => /[a-z0-9]/.test(e));
-
-let firstHalf = result.slice(0, Math.floor(result.length / 2)).join('');
-
-let secondHalf = result.slice(Math.ceil(result.length / 2) ).reverse().join('');
-
-
-return firstHalf === secondHalf;
+  return curr;
 };
