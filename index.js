@@ -1,21 +1,28 @@
-var maxSubArray = function(nums) {
-    
-    if(nums.length === 1){
-        return nums[0];
-    }
-    
-    let temp = nums.sort((a, b) => b - a);
-    let currArr = [nums[0], nums[1]];
-    let currArrSum = nums[0] + nums[1];
-    let prevArrSum = 0;
-    
-    while(currArrSum > prevArrSum){
-        prevArrSum = currArrSum;
-        currArr.push(temp[currArr.length]);
-        
-        
-        currArrSum = currArr.reduce((a, b) => a + b);
-    }
-    
-    return currArr;
+var maxProduct = function(nums) {
+
+  if(nums.length < 3){
+       return Math.max.apply(null, nums);
+  }
+
+  let startIndex
+  let prodArr = [];
+  let curLength = nums.length;
+  
+  while(curLength > 0){
+      startIndex = 0;
+      while(startIndex <= curLength){
+          
+      curArr = [];
+          for(let i = startIndex; i < curLength; i++){
+              curArr.push(nums[i]);
+              prodArr.push(curArr.reduce((a, b) => a * b));
+          }
+          
+          startIndex += curLength;
+      }
+
+      curLength--;
+  }
+  
+  return Math.max.apply(null, prodArr);
 };
