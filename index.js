@@ -1,15 +1,13 @@
-var climbStairs = function(n) {
-   
-  let curr = 0;
-  let prev = 1;
-  let prevPrev = 0;
+var maxArea = function(height) {
+  let result = [];
+  let lower;
   
-  for(let i = 0; i < n; i++){
-          
-          curr = prev + prevPrev;
-          prevPrev = prev;
-          prev = curr;
-  }
+  height.forEach((e, ind) => {
+      height.forEach((i, inx) => {
+          lower = e > i ? i : e;
+          result.push(lower * (Math.abs(ind - inx)));
+      })
+  })
   
-  return curr;
+  return Math.max.apply(null, result);
 };
