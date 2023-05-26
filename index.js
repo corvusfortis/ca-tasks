@@ -1,30 +1,27 @@
-var insert = function(intervals, newInterval) {
-    
-  let temp = [...intervals];
+var characterReplacement = function(s, k) {
+  let start = 0;
+  let end = s.length;
+  let counter;
+  let max = 0;
+  let temp;
   
-  temp.push(newInterval);
   
-  return merge(temp);
-
-};
-
-
-
-function merge(intervals) {
-let mergeCounter;
-let temp = [...intervals];
-temp.sort((a, b) => a[0] - b[0]);
-
-while(mergeCounter !== 0){
-    mergeCounter = 0;
-    for(let i = 1; i < temp.length; i++){
-        if(temp[i - 1][1] >= temp[i][0] || temp[i-1][1] >= temp[i][1]){
-            mergeCounter++;
-            temp[i - 1][1] = Math.max(temp[i][1], temp[i-1][1]);
-            temp.splice(i, 1);
-            break;
-        }
-    }
-}
-return temp;
+   while(start < end){
+       temp = k;
+       counter = 0;
+       
+       
+       while(temp > -1 && counter < end){
+           counter++;
+           if(s[counter] !== s[start]){
+               temp--;
+           }
+       }
+       
+       max = max > counter ? max : counter;
+       
+       start++; 
+         
+   }
+   return max;
 };
