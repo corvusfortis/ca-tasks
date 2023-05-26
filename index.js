@@ -1,51 +1,49 @@
-function search(nums, target){
-  let mid = findMin(nums);
-  return binary(nums, target, mid);
-}
-
-function findMin(nums) {
-  let curDif = nums[1] - nums[0];
+var exist = function(board, word) {
+  let firstLetterIJ = findFirstLetter(board, word[0]);
   
+  if(firstLetterIJ === null){
+      return false;
+  }
   
-  if(curDif < 0){
-      return nums[1] > nums[0] ? 0 : 1;
-  };
+  let currLetterIJ = firstLetterIJ;
   
-  let prevDif = 0;
-  for(let i = 1; i < nums.length; i++){
+  for(let i = 1; i < word.length; i++){
+      console.log(currLetterIJ);
+      currLetterIJ = checkNextLetter(board, currLetterIJ, word[i]);
       
-      prevDif = curDif;
-      
-      curDif = nums[i] - nums[i - 1];
-      
-      if (curDif < 0){
-          return i;
+      if(currLetterIJ === null){
+          return false;
       }
   }
   
-  return 0;
+  return true;
 };
 
-function binary(nums, target, mid) {
-let start = 0;
-let end = nums.length - 1;
-let center = mid;
-
-while(start <= end){
-     
-     
-     if(nums[center] === target){
-         return center;
-     }
-     
-     if(nums[center] < target){
-         start = center + 1;
-     }else{
-         end = center - 1;
-     }
-     
-     center = Math.floor((start + end) / 2);
+function findFirstLetter(board, letter){
+  let j;
+  for(let i = 0; i < board.length; i++){
+      j = board[i].indexOf(letter);
+      if(j !== -1){
+          return [i, j];
+      }
+  }
+  return null;
 }
 
-return -1;
-};
+function checkNextLetter(board, prevIJ, letter){
+  let [i, j] = prevIJ;
+  
+  let ijs = [[i-1, j], [i+1, j], [i, j-1], [i, j+1]];
+  ijs = ijs.filter(e => !e.some(p => p < 0) && !e.some(p => p >= board.length));
+  
+  
+  for(let k = 0; k < ijs.length; k++){
+      let [first, second] = ijs[k];
+      
+      if(board[first][second] === letter){
+          return [first, second]
+      }
+
+  }
+    return null;
+}
