@@ -8,7 +8,7 @@ function findMin(nums) {
   
   
   if(curDif < 0){
-      return nums[1] > nums[0] ? nums[0] : nums[1];
+      return nums[1] > nums[0] ? 0 : 1;
   };
   
   let prevDif = 0;
@@ -19,11 +19,11 @@ function findMin(nums) {
       curDif = nums[i] - nums[i - 1];
       
       if (curDif < 0){
-          return nums[i];
+          return i;
       }
   }
   
-  return nums[0];
+  return 0;
 };
 
 function binary(nums, target, mid) {
